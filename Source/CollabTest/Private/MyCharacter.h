@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "EnhancedInputComponent.h"
 #include "MyCharacter.generated.h"
 
 UCLASS()
@@ -18,15 +19,21 @@ public:
 	//Player States
 	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="PlayerStates")
 		bool isMoving;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PlayerStates")
 		bool isDashing;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PlayerStates")
 		bool isJumping;
-
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PlayerStates")
 		bool isAttacking;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PlayerStates")
+		bool isFalling;
+
+	//Input
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "PlayerInput")
+		UInputAction* DashInputAction;
+
+	//Player Variables.
+	int DashCount;
 
 public:
 	// Sets default values for this character's properties
@@ -45,5 +52,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void PlayerMove(UPARAM(ref)float& XValue, UPARAM(ref)float& YValue);
+
+	void DashCallbackFunc(const FInputActionInstance& Instance);
 
 };
